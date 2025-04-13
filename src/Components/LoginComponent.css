@@ -1,0 +1,88 @@
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: transparent;
+}
+
+.form-container {
+  /* background-color: rgb(80, 121, 46); */
+  padding: 20px;
+  border-radius: 20px;
+  background-image: url('https://dashboard.codeparrot.ai/api/image/Z-_lpQz4-w8v6SUZ/desktop.png');
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 60%;
+  width: 400px;
+}
+
+.side-image {
+  display: flex;
+  margin: 0 20px;
+}
+
+.side-image img {
+  height: 450px;
+  width: 300px;
+}
+
+.form-toggle {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.form-toggle button {
+  width: 50%;
+  padding: 10px;
+  background-color: #f3f3f3;
+  border: #033452;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 20px;
+}
+
+.form-toggle .active {
+  background-color: #253c54;
+  color: rgb(67, 150, 165);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form h2 {
+  margin-bottom: 20px;
+}
+
+.form input {
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+}
+
+.form button {
+  padding: 10px;
+  background-color: #345a65;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.form a {
+  color: #155b87;
+  text-decoration: underline;
+  margin-bottom: 30px;
+  text-align: right;
+}
+
+.form p {
+  text-align: center;
+}
