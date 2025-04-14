@@ -169,6 +169,9 @@ class GraphMain {
       const v = this.vtces.get(rp.vname);
       for (const nbr of v.nbrs.keys()) {
         if (map.has(nbr)) {
+
+          //relaxation method in dijkstra algorithm 
+          
           const oc = map.get(nbr).cost;
           const k = this.vtces.get(rp.vname);
           let nc;
