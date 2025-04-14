@@ -1,34 +1,30 @@
+// Navbar.js
 import React from 'react';
-import {Link} from 'react-router-dom';
-import { buttonStyle } from './buttonStyle';
-import logo from './icons.png';
+import { Link } from 'react-router-dom';
+import './Navbar.css';
+import logo from './logo2.jpeg';
 
 const Navbar = () => {
     return (
-        <nav style={{ backgroundColor: 'black', padding: '10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+        <nav className="navbar">
+            <div className="navbar-container">
                 <div>
-                <img src={logo} alt="Logo" style={{ height: '40px', marginRight: '10px' }} />
+                    <img src={logo} alt="Logo" className="navbar-logo" />
                 </div>
-                <ul style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0, marginLeft: 'auto' }}>
-                    <li style={{ marginRight: '20px' }}>
-                        <Link to="/home">
-                        <button style={buttonStyle}>Home</button>
+                <ul className="navbar-list">
+                    <li className="navbar-item">
+                        <Link to="/home" className="navbar-link">
+                            <button className="navbar-button">Home</button>
                         </Link>
                     </li>
-                    <li style={{ marginRight: '20px' }}>
-                        <Link to="/Features">
-                        <button style={buttonStyle}>Features</button>
+                    <li className="navbar-item">
+                        <Link to="/Contactus" className="navbar-link">
+                            <button className="navbar-button">Contact Us</button>
                         </Link>
                     </li>
-                    <li style={{ marginRight: '20px' }}>
-                        <Link to="/Contactus">
-                        <button style={buttonStyle}>Contact Us</button>
-                        </Link>
-                    </li>
-                    <li style={{ marginRight:  '20px' }}>
-                        <Link to="/login">
-                            <button style={buttonStyle}>Login</button>
+                    <li className="navbar-item">
+                        <Link to="/login" className="navbar-link">
+                            <button className="navbar-button">Login</button>
                         </Link>
                     </li>
                 </ul>

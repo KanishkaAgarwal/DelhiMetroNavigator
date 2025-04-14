@@ -6,9 +6,6 @@ export default function LoginComponent() {
   return (
     <div className='container'>
 
-      <div className="side-image">
-        <img src="https://dashboard.codeparrot.ai/api/image/Z_Qe1IDi91IKZZkN/search-r.png" alt="description" />
-      </div>
 
       <div className='form-container'>
         <div className='form-toggle'>

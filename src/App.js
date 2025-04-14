@@ -6,6 +6,9 @@ import About from './Components/About';
 import Features from './Components/Features';
 import LoginComponent from './Components/LoginComponent';
 import Hero from './Components/Hero';
+import HowItWorks from './Components/HowItWorks';
+import TechOverview from './Components/TechOverview';
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
         </Routes>
         <Hero />
         <Features/>
+        <HowItWorks/>
+        <TechOverview/>
+        <Footer/>
       </div>
     </Router>
   );

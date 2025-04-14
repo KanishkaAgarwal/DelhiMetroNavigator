@@ -1,175 +1,152 @@
+// MetroNavigator.js
 import React, { useState } from 'react';
+import './Hero.css';
+import MetroGraph from './MetroGraph';
 
-const MetroNavigator = () => {
-  // Metro station data structure
-  const [metroGraph, setMetroGraph] = useState({
-    'Noida Sector 62~B': { neighbors: ['Botanical Garden~B'], distance: 8, fare: 20 },
-    'Botanical Garden~B': { neighbors: ['Noida Sector 62~B', 'Yamuna Bank~B'], distance: 10, fare: 25 },
-    // Add all other stations similarly...
-  });
+const metroGraph = MetroGraph.createMetroMap();
 
+function MetroNavigator() {
   const [startStation, setStartStation] = useState('');
   const [endStation, setEndStation] = useState('');
-  const [results, setResults] = useState(null);
-  const [error, setError] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [result, setResult] = useState(null);
+  const [searchType, setSearchType] = useState('distance'); // 'distance' or 'time'
 
-  // Dijkstra's algorithm for shortest path
-  const dijkstra = (src, des, useTime = false) => {
-    const distances = {};
-    const previous = {};
-    const nodes = new Set();
-    let path = [];
-
-    // Initialize distances
-    for (const vertex in metroGraph) {
-      distances[vertex] = Infinity;
-      previous[vertex] = null;
-      nodes.add(vertex);
-    }
-    distances[src] = 0;
-
-    while (nodes.size) {
-      let smallest = null;
-      for (const node of nodes) {
-        if (smallest === null || distances[node] < distances[smallest]) {
-          smallest = node;
-        }
-      }
-
-      if (smallest === des) {
-        while (previous[smallest]) {
-          path.push(smallest);
-          smallest = previous[smallest];
-        }
-        break;
-      }
-
-      if (smallest === null || distances[smallest] === Infinity) {
-        break;
-      }
-
-      nodes.delete(smallest);
-
-      for (const neighbor of metroGraph[smallest].neighbors) {
-        const alt = distances[smallest] + 
-          (useTime ? 120 + 40 * metroGraph[smallest].neighbors[neighbor] : 
-           metroGraph[smallest].neighbors[neighbor]);
-        
-        if (alt < distances[neighbor]) {
-          distances[neighbor] = alt;
-          previous[neighbor] = smallest;
-        }
-      }
-    }
-
-    return {
-      path: path.concat(src).reverse(),
-      distance: distances[des],
-      time: Math.ceil(distances[des] / 60)
-    };
-  };
+  const stations = [
+    'Noida Sector 62~B',
+    'Botanical Garden~B',
+    'Yamuna Bank~B',
+    'Rajiv Chowk~BY',
+    'Vaishali~B',
+    'Moti Nagar~B',
+    'Janak Puri West~BO',
+    'Dwarka Sector 21~B',
+    'Huda City Center~Y',
+    'Saket~Y',
+    'Vishwavidyalaya~Y',
+    'Chandni Chowk~Y',
+    'New Delhi~YO',
+    'AIIMS~Y',
+    'Shivaji Stadium~O',
+    'DDS Campus~O',
+    'IGI Airport~O',
+    'Rajouri Garden~BP',
+    'Netaji Subhash Place~PR',
+    'Punjabi Bagh West~P'
+  ];
 
   const handleCalculate = () => {
     if (!startStation || !endStation) {
-      setError('Please select both stations');
+      alert('Please select both stations');
+      return;
+    }
+    
+    if (!metroGraph.containsVertex(startStation) || !metroGraph.containsVertex(endStation)) {
+      alert('One or both stations are invalid');
       return;
     }
 
-    if (!metroGraph[startStation] || !metroGraph[endStation]) {
-      setError('Invalid station selected');
+    const processed = new Map();
+    if (!metroGraph.hasPath(startStation, endStation, processed)) {
+      alert('No path exists between these stations');
       return;
     }
 
-    if (startStation === endStation) {
-      setError('Start and end stations cannot be the same');
-      return;
+    if (searchType === 'distance') {
+      const path = metroGraph.getMinimumDistance(startStation, endStation);
+      const interchanges = metroGraph.getInterchanges(path);
+      setResult({
+        type: 'Distance',
+        path: interchanges,
+        value: interchanges[interchanges.length - 1] + ' km'
+      });
+    } else {
+      const path = metroGraph.getMinimumTime(startStation, endStation);
+      const interchanges = metroGraph.getInterchanges(path);
+      setResult({
+        type: 'Time',
+        path: interchanges,
+        value: interchanges[interchanges.length - 1] + ' minutes'
+      });
     }
-
-    setError('');
-    const distanceResult = dijkstra(startStation, endStation, false);
-    const timeResult = dijkstra(startStation, endStation, true);
-
-    setResults({
-      shortestPath: distanceResult.path.join(' → '),
-      distance: distanceResult.distance,
-      fastestPath: timeResult.path.join(' → '),
-      time: timeResult.time
-    });
   };
 
   return (
-    <div className="metro-navigator">
-      {/* Button in Hero section to open modal */}
-      {/* <button 
-        onClick={() => setShowModal(true)}
-        className="metro-button"
+    <div className="navigator-container">
+      <h2 className="navigator-title">Plan Your Metro Journey</h2>
+      
+      <div className="navigator-radio-group">
+        <label>
+          <input
+            type="radio"
+            value="distance"
+            checked={searchType === 'distance'}
+            onChange={() => setSearchType('distance')}
+          />
+          Shortest Distance
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="time"
+            checked={searchType === 'time'}
+            onChange={() => setSearchType('time')}
+          />
+          Shortest Time
+        </label>
+      </div>
+      
+      <div className="navigator-input-group">
+        <label className="navigator-label">From:</label>
+        <select
+          value={startStation}
+          onChange={(e) => setStartStation(e.target.value)}
+          className="navigator-select"
+        >
+          <option value="">Select starting station</option>
+          {stations.map(station => (
+            <option key={station} value={station}>{station}</option>
+          ))}
+        </select>
+      </div>
+      
+      <div className="navigator-input-group">
+        <label className="navigator-label">To:</label>
+        <select
+          value={endStation}
+          onChange={(e) => setEndStation(e.target.value)}
+          className="navigator-select"
+        >
+          <option value="">Select destination station</option>
+          {stations.map(station => (
+            <option key={station} value={station}>{station}</option>
+          ))}
+        </select>
+      </div>
+      
+      <button 
+        onClick={handleCalculate}
+        className="navigator-button"
       >
-        <h2>Plan Your Metro</h2>
-      </button> */}
-
-      {/* Modal for metro navigation */}
-      {showModal && (
-        <div className="metro-modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowModal(false)}>&times;</span>
-            <h2>Delhi Metro Navigator</h2>
-            
-            <div className="station-selector">
-            {/* add closing button here */}
-              {/* Source station..... */}
-              <div>
-                <label>Start Station:</label>
-                <select 
-                  value={startStation} 
-                  onChange={(e) => setStartStation(e.target.value)}
-                >
-                  <option value="">Select Station</option>
-                  {Object.keys(metroGraph).map(station => (
-                    <option key={`start-${station}`} value={station}>
-                      {station}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              
-              {/* Destination station.... */}
-              <div>
-                <label>End Station:</label>
-                <select 
-                  value={endStation} 
-                  onChange={(e) => setEndStation(e.target.value)}
-                >
-                  <option value="">Select Station</option>
-                  {Object.keys(metroGraph).map(station => (
-                    <option key={`end-${station}`} value={station}>
-                      {station}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              
-              <button onClick={handleCalculate} style={{background: 'red'}}>Calculate Route</button>
-            </div>
-
-            {error && <div className="error">{error}</div>}
-
-            {results && (
-              <div className="results">
-                <h3>Shortest Route:</h3>
-                <p><strong>Path:</strong> {results.shortestPath}</p>
-                <p><strong>Distance:</strong> {results.distance} km</p>
-                
-                <h3>Fastest Route:</h3>
-                <p><strong>Path:</strong> {results.fastestPath}</p>
-                <p><strong>Estimated Time:</strong> {results.time} minutes</p>
-              </div>
-            )}
+        Calculate Route
+      </button>
+      
+      {result && (
+        <div className="navigator-result">
+          <h3 className="navigator-result-title">Recommended Route ({result.type})</h3>
+          <p><strong>Total {result.type.toLowerCase()}:</strong> {result.value}</p>
+          <p><strong>Interchanges:</strong> {result.path[result.path.length - 2]}</p>
+          <div className="navigator-path">
+            <p><strong>Path:</strong></p>
+            <p>START ⇒ {result.path[0]}</p>
+            {result.path.slice(1, -2).map((step, index) => (
+              <p key={index}>{step}</p>
+            ))}
+            <p>{result.path[result.path.length - 3]} ⇒ END</p>
           </div>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default MetroNavigator;

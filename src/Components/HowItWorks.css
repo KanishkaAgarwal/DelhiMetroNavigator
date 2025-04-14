@@ -1,0 +1,63 @@
+.howItWorksContainer {
+    background-color: #e9f5ff;
+    padding: 32px;
+    text-align: center;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.title {
+    font-size: 2.125rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.stepper {
+    max-width: 600px;
+    margin: 32px auto 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: step-counter;
+}
+
+.step {
+    position: relative;
+    padding-left: 72px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.step:before {
+    counter-increment: step-counter;
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    background-color: #1976d2;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+}
+
+.stepLabel {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.step:after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 32px;
+    height: calc(100% - 32px);
+    width: 2px;
+    background-color: #1976d2;
+}
+
+.step:last-child:after {
+    display: none;
+}

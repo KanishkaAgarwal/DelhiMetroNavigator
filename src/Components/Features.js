@@ -38,6 +38,7 @@ function Features() {
 const styles = {
   container: {
     padding: '32px',
+    overflowX: 'auto',
   },
   title: {
     textAlign: 'center',
@@ -46,20 +47,23 @@ const styles = {
   },
   featuresContainer: {
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginTop: '16px',
+    flexWrap: 'nowrap', // Prevents wrapping to the next line
+    gap: '16px', // Adds consistent spacing between cards
+    paddingBottom: '16px', // Prevents shadow clipping
+    minWidth: 'fit-content',
+
+    // scrollSnapType: 'x mandatory',
+    // justifyContent: 'space-between',
+    // marginTop: '16px',
   },
   featureCard: {
-    flex: '1 1 calc(33.333% - 16px)', // Default to 3 columns
-    margin: '8px',
+    flex: '0 0 auto',
+    width: '300px', 
     boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
     padding: '16px',
     textAlign: 'center',
-    height: '100%',
     borderRadius: '8px',
     backgroundColor: '#fff',
-    transition: 'transform 0.2s',
   },
   icon: {
     fontSize: '50px',
