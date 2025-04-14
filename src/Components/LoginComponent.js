@@ -27,7 +27,7 @@ export default function LoginComponent() {
           </div>
         ) : (
           <div className="form">
-            <h2>Sign Up and discover great opportunities</h2>
+            <h2>Sign Up to get  better User Experience</h2>
             <input type='email' placeholder='Your email ID' />
             <input type='password' placeholder='Enter a strong password' />
             <input type='password' placeholder='Confirm your password' />
