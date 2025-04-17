@@ -1,8 +1,9 @@
 .howItWorksContainer {
-    background-color: #e9f5ff;
+    background-color: grey;
     padding: 32px;
     text-align: center;
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    border: black solid;
 }
 
 .title {
@@ -55,7 +56,7 @@
     top: 32px;
     height: calc(100% - 32px);
     width: 2px;
-    background-color: #1976d2;
+    background-color: #7c8085;
 }
 
 .step:last-child:after {

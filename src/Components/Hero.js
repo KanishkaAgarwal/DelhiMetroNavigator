@@ -1,4 +1,3 @@
-// Hero.js
 import React, { useState } from 'react';
 import './Hero.css';
 import backgroundVideo from './video.mp4';

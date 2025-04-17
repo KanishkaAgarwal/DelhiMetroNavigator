@@ -14,7 +14,8 @@
   padding: 20px;
   border-radius: 20px;
   background-image: url('https://dashboard.codeparrot.ai/api/image/Z-_lpQz4-w8v6SUZ/desktop.png');
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(85, 139, 154, 0.1);
+  /* background: transparent; */
   height: 60%;
   width: 400px;
 }

@@ -101,7 +101,7 @@ class MetroGraph {
   
             if (nc < oc) {
               const gp = map.get(nbr);
-              gp.psf = rp.psf + " " + nbr;
+              gp.psf = rp.psf + "->" + nbr;
               gp.cost = nc;
               heap.updatePriority(gp);
             }
@@ -113,7 +113,7 @@ class MetroGraph {
   
     getMinimumDistance(src, dst) {
       let min = Infinity;
-      let ans = "";
+      let ans = ""; // path for shortest path 
       const processed = new Map();
       const stack = [{ 
         vname: src, 
@@ -126,7 +126,7 @@ class MetroGraph {
         const rp = stack.pop();
   
         if (processed.has(rp.vname)) {
-          continue;
+          continue; // to prevent cycle 
         }
   
         processed.set(rp.vname, true);
@@ -152,7 +152,7 @@ class MetroGraph {
           }
         }
       }
-      return ans + min.toString();
+      return ans + min.toString(); // shortest path and minimum distance 
     }
   
     getMinimumTime(src, dst) {
@@ -201,7 +201,7 @@ class MetroGraph {
     }
   
     getInterchanges(str) {
-      const arr = [];
+      const arr = []; // result
       const res = str.split("  ");
       arr.push(res[0]);
       let count = 0;
@@ -227,22 +227,64 @@ class MetroGraph {
       }
       arr.push(count.toString());
       arr.push(res[res.length - 1]);
-      return arr;
+      return arr;  // path,count of interchange,destination
     }
   
     static createMetroMap() {
       const g = new MetroGraph();
-      // Add all stations and edges as in the Java version
+  
+      
       g.addVertex("Noida Sector 62~B");
       g.addVertex("Botanical Garden~B");
-      // ... add all other stations
+      g.addVertex("Yamuna Bank~B");
+      g.addVertex("Rajiv Chowk~BY");
+      g.addVertex("Dwarka Sector 21~B");
+      
+      
+      g.addVertex("Vishwavidyalaya~Y");
+      g.addVertex("Kashmere Gate~Y");
+      g.addVertex("Rajiv Chowk~BY"); 
+      g.addVertex("Hauz Khas~YV"); 
+      g.addVertex("Huda City Centre~Y");
+      
+      
+      g.addVertex("Kashmere Gate~V"); 
+      g.addVertex("Hauz Khas~YV"); 
+      g.addVertex("Ballabhgarh~V");
+      
+      
+      g.addVertex("Rithala~R");
+      g.addVertex("Kashmere Gate~R"); 
+      g.addVertex("Inderlok~R");
+      
       
       g.addEdge("Noida Sector 62~B", "Botanical Garden~B", 8);
       g.addEdge("Botanical Garden~B", "Yamuna Bank~B", 10);
-      // ... add all other edges
+      g.addEdge("Yamuna Bank~B", "Rajiv Chowk~BY", 12);
+      g.addEdge("Rajiv Chowk~BY", "Dwarka Sector 21~B", 15);
+      
+      
+      g.addEdge("Vishwavidyalaya~Y", "Kashmere Gate~Y", 8);
+      g.addEdge("Kashmere Gate~Y", "Rajiv Chowk~BY", 10);
+      g.addEdge("Rajiv Chowk~BY", "Hauz Khas~YV", 14);
+      g.addEdge("Hauz Khas~YV", "Huda City Centre~Y", 20);
+      
+      
+      g.addEdge("Kashmere Gate~V", "Hauz Khas~YV", 18);
+      g.addEdge("Hauz Khas~YV", "Ballabhgarh~V", 22);
+      
+      
+      g.addEdge("Rithala~R", "Kashmere Gate~R", 25);
+      g.addEdge("Kashmere Gate~R", "Inderlok~R", 6);
+      
+      
+      g.addEdge("Rajiv Chowk~BY", "Rajiv Chowk~BY", 5); 
+      g.addEdge("Kashmere Gate~Y", "Kashmere Gate~V", 8); 
+      g.addEdge("Kashmere Gate~Y", "Kashmere Gate~R", 10); 
+      g.addEdge("Hauz Khas~YV", "Hauz Khas~YV", 4); 
       
       return g;
-    }
+  }
   }
   
   // Heap implementation in JavaScript

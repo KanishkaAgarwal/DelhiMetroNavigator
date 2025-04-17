@@ -1,8 +1,9 @@
 .techOverviewContainer {
     padding: 32px;
-    background-color: #f5f5f5;
+    background-color: grey;
     text-align: center;
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    border: black solid;
   }
   
   .title {
@@ -35,8 +36,8 @@
   }
   
   .chipPrimary {
-    background-color: #1976d2;
-    color: white;
+    background-color: #6de5e5;
+    color: rgb(19, 18, 18);
   }
   
   .chipSecondary {
@@ -45,7 +46,7 @@
   }
   
   .chipOutlined {
-    background-color: transparent;
-    color: #1976d2;
+    background-color: #0b924a;
+    color: #e9ecec;
     border: 1px solid #1976d2;
   }

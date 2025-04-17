@@ -11,28 +11,43 @@ function MetroNavigator() {
   const [result, setResult] = useState(null);
   const [searchType, setSearchType] = useState('distance'); // 'distance' or 'time'
 
-  const stations = [
-    'Noida Sector 62~B',
-    'Botanical Garden~B',
-    'Yamuna Bank~B',
-    'Rajiv Chowk~BY',
-    'Vaishali~B',
-    'Moti Nagar~B',
-    'Janak Puri West~BO',
-    'Dwarka Sector 21~B',
-    'Huda City Center~Y',
-    'Saket~Y',
-    'Vishwavidyalaya~Y',
-    'Chandni Chowk~Y',
-    'New Delhi~YO',
-    'AIIMS~Y',
-    'Shivaji Stadium~O',
-    'DDS Campus~O',
-    'IGI Airport~O',
-    'Rajouri Garden~BP',
-    'Netaji Subhash Place~PR',
-    'Punjabi Bagh West~P'
-  ];
+  
+    const stations = [
+        
+        'Noida Sector 62~B',
+        'Botanical Garden~B',
+        'Yamuna Bank~B',
+        'Rajiv Chowk~BY', 
+        'Vaishali~B',
+        'Moti Nagar~B',
+        'Janak Puri West~BO',
+        'Dwarka Sector 21~B',
+        
+       
+        'Huda City Center~Y',
+        'Saket~Y',
+        'AIIMS~Y',
+        'Rajiv Chowk~BY', 
+        'New Delhi~YO', 
+        'Chandni Chowk~Y',
+        'Vishwavidyalaya~Y',
+        
+      
+        'New Delhi~YO', 
+        'Shivaji Stadium~O',
+        'DDS Campus~O',
+        'IGI Airport~O',
+        'Janak Puri West~BO', 
+        
+       
+        'Rajouri Garden~BP',
+        'Netaji Subhash Place~PR', 
+        'Punjabi Bagh West~P',
+        
+       
+        'Netaji Subhash Place~PR' 
+    ];
+
 
   const handleCalculate = () => {
     if (!startStation || !endStation) {
@@ -141,7 +156,7 @@ function MetroNavigator() {
             {result.path.slice(1, -2).map((step, index) => (
               <p key={index}>{step}</p>
             ))}
-            <p>{result.path[result.path.length - 3]} ⇒ END</p>
+            <p> ⇒ END</p>
           </div>
         </div>
       )}
